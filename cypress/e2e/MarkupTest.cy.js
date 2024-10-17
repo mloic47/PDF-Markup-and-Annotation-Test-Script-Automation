@@ -1,5 +1,6 @@
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('https://example.cypress.io')
+    cy.visit('https://app.zipboard.co')
+    cy.get('#login-username').type('loic')
   })
 })

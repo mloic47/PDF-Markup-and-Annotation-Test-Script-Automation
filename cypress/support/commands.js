@@ -1,5 +1,6 @@
 
-import { LoginPage } from '../pages/LoginPage'
+import { LoginPage } from '../e2e/pages/LoginPage'
+import { user } from '../fixtures/usersTestData'
 
 const loginPage = new LoginPage()
 // ***********************************************
@@ -14,10 +15,15 @@ const loginPage = new LoginPage()
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add("login", (username, password) => {
-    cy.visit('https://app.zipboard.co/')
-    cy.get(loginPage.usernameField).type(username)
-    cy.get(loginPage.passwordField).type(password)
+Cypress.Commands.add("loginAsSuperAdmin", () => {
+    Cypress.on('uncaught:exception', (err, runnable) => {
+        // returning false here prevents Cypress from
+        // failing the test
+        return false
+      })
+    cy.visit('https://app.zipboard.co')
+    cy.get(loginPage.usernameField).type(user.superAdmin.username)
+    cy.get(loginPage.passwordField).type(user.superAdmin.password)
     cy.get(loginPage.loginButton).click()
 })
 //
